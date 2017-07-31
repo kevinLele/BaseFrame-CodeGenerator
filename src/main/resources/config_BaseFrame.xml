@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <!-- 相关路径配置 -->
+    <paths>
+        <projectPath>D:\ZGIS_Cloud\Other\Codes\BaseFrame</projectPath>
+
+        <utilPath>
+            \src\main\java\com\hq\CloudPlatform\BaseFrame\utils
+        </utilPath>
+        <entityPath>
+            \src\main\java\com\hq\CloudPlatform\BaseFrame\entity
+        </entityPath>
+        <serviceInterfacePath>
+            \src\main\java\com\hq\CloudPlatform\BaseFrame\service
+        </serviceInterfacePath>
+        <serviceImplPath>
+            \src\main\java\com\hq\CloudPlatform\BaseFrame\service\impl
+        </serviceImplPath>
+        <mapperInterfacePath>
+            \src\main\java\com\hq\CloudPlatform\BaseFrame\mapper
+        </mapperInterfacePath>
+        <mapperXmlPath>
+            \src\main\resources\mappers\mysql
+        </mapperXmlPath>
+        <restfulInterfacePath>
+            \src\main\java\com\hq\CloudPlatform\BaseFrame\restful
+        </restfulInterfacePath>
+        <restfulImplPath>
+            \src\main\java\com\hq\CloudPlatform\BaseFrame\restful\impl
+        </restfulImplPath>
+
+
+        <providerInterfacePath>
+            \src\main\java\com\tscloud\system\providerdubbo
+        </providerInterfacePath>
+        <providerImplPath>
+            \src\main\java\com\tscloud\system\dubboservices
+        </providerImplPath>
+        <testerClassFilePath>
+            \src\test\java\restful\system
+        </testerClassFilePath>
+    </paths>
+
+    <!--数据库表的配置信息-->
+    <tableCfg>
+        <!--tablePrefix:表的前缀-->
+        <tables tablePrefix="ca_">
+            <table name="ca_user">
+                <relation>
+                    <!--
+                        one-to-one: 表示一对一关联关系
+                        joinType:
+                            inner join 内联接
+                            left join 左联接
+                            right join 右联接
+                    -->
+                    <!--<one-to-one both="true">
+                        <relation-fields table="ca_organization" joinType="inner join">
+                            &lt;!&ndash;
+                                left:  主表的关联字段
+                                right: 关联关系表的字段
+                                例如：left="org_id" right="id" 则生成的SQL语句为t.org_id=o.id
+                                如果配置多对，则通过 and 进行连接
+                            &ndash;&gt;
+                            <relation-field left="org_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>-->
+
+                    <!--
+                        一对多关系
+                    -->
+                    <one-to-many both="true">
+                        <relation-fields table="ca_order" joinType="left join">
+                            <relation-field left="id" right="user_id"/>
+                        </relation-fields>
+                    </one-to-many>
+
+                    <!--
+                        多对多关系
+                        说明：只有多对多才允许有两个relation-fields子元素
+                    -->
+                    <many-to-many both="true">
+                        <relation-fields table="ca_role" joinType="inner join">
+                            <relation-field left="role_id" right="id"/>
+                        </relation-fields>
+                        <!--此处需要先配置中间关联关系表-->
+                        <relation-fields isRelationTable="true" table="ca_user_role" joinType="inner join">
+                            <relation-field left="id" right="user_id"/>
+                        </relation-fields>
+                    </many-to-many>
+                </relation>
+            </table>
+
+            <table name="ca_role"></table>
+            
+            <table name="ca_order"></table>
+
+            <table name="ca_organization">
+                <relation>
+                    <one-to-many both="true">
+                        <relation-fields table="ca_user" joinType="inner join">
+                            <relation-field left="id" right="org_id"/>
+                        </relation-fields>
+                    </one-to-many>
+                </relation>
+            </table>
+        </tables>
+
+        <!--表中需要排除的字段,这些字段在生成entity时不会生成相应的属性-->
+        <excludedFields>
+            <field>id</field>
+            <field>name</field>
+            <field>create_date</field>
+            <field>update_date</field>
+            <field>delete_date</field>
+            <field>creator_id</field>
+            <field>updater_id</field>
+            <field>deleter_id</field>
+            <field>creator</field>
+            <field>updater</field>
+            <field>deleter</field>
+            <field>is_delete</field>
+        </excludedFields>
+    </tableCfg>
+
+    <DatabaseCfg>
+        <url>
+            <![CDATA[jdbc:mysql://192.168.1.210:3306/baseframe?&useSSL=false&useUnicode=true&characterEncoding=UTF-8]]>
+        </url>
+        <user>huiqing</user>
+        <password>huiqing</password>
+    </DatabaseCfg>
+
+    <restPathPrefix>SYSTEM</restPathPrefix>
+</config>

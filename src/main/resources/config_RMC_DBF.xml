@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <!--是否是分布式的项目-->
+    <distributed>true</distributed>
+
+    <!-- 相关路径配置 -->
+    <paths>
+        <projectPath>D:\ZGIS_Cloud\Other\Codes\DistributedBaseFrame</projectPath>
+
+        <!--Domain-->
+        <utilPath>
+            \BaseDomain\src\main\java\com\hq\dbf\BaseDomain\utils
+        </utilPath>
+        <entityPath>
+            \BaseDomain\src\main\java\com\hq\dbf\BaseDomain\entity
+        </entityPath>
+        <providerInterfacePath>
+            \BaseDomain\src\main\java\com\hq\dbf\BaseDomain\provider
+        </providerInterfacePath>
+
+        <!--Server-->
+        <providerImplPath>
+            \BaseServer\src\main\java\com\hq\dbf\BaseServer\provider\impl
+        </providerImplPath>
+        <serviceInterfacePath>
+            \BaseServer\src\main\java\com\hq\dbf\BaseServer\service
+        </serviceInterfacePath>
+        <serviceImplPath>
+            \BaseServer\src\main\java\com\hq\dbf\BaseServer\service\impl
+        </serviceImplPath>
+        <mapperInterfacePath>
+            \BaseServer\src\main\java\com\hq\dbf\BaseServer\mapper
+        </mapperInterfacePath>
+        <mapperXmlPath>
+            \BaseServer\src\main\resources\mappers\mysql
+        </mapperXmlPath>
+
+        <!--Web-->
+        <restfulInterfacePath>
+            \BaseWeb\src\main\java\com\hq\dbf\BaseWeb\restful
+        </restfulInterfacePath>
+        <restfulImplPath>
+            \BaseWeb\src\main\java\com\hq\dbf\BaseWeb\restful\impl
+        </restfulImplPath>
+        <testerClassFilePath>
+            \BaseWeb\src\test\java\com\hq\dbf\BaseWeb\restful
+        </testerClassFilePath>
+    </paths>
+
+    <!--数据库表的配置信息-->
+    <tableCfg>
+        <!--tablePrefix:表的前缀-->
+        <tables tablePrefix="rmc_">
+            <table name="rmc_resource">
+                <relation>
+                    <one-to-one both="true">
+                        <relation-fields table="rmc_res_data_property" joinType="left join">
+                            <relation-field left="property_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+
+                    <one-to-one both="true">
+                        <relation-fields table="rmc_res_file_property" joinType="left join">
+                            <relation-field left="property_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+
+                    <one-to-one both="true">
+                        <relation-fields table="rmc_res_gis_property" joinType="left join">
+                            <relation-field left="property_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+
+                    <one-to-one both="true">
+                        <relation-fields table="rmc_res_service_property" joinType="left join">
+                            <relation-field left="property_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+
+                    <one-to-one both="true">
+                        <relation-fields table="rmc_res_metadata" joinType="inner join">
+                            <relation-field left="metadata_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+
+                    <one-to-many both="true">
+                        <relation-fields table="rmc_res_ownership" joinType="left join">
+                            <relation-field left="id" right="res_id"/>
+                        </relation-fields>
+                    </one-to-many>
+
+                    <one-to-many both="true">
+                        <relation-fields table="rmc_res_authority" joinType="left join">
+                            <relation-field left="id" right="res_id"/>
+                        </relation-fields>
+                    </one-to-many>
+                </relation>
+            </table>
+
+            <table name="rmc_res_ownership"></table>
+            <table name="rmc_res_metadata"></table>
+            <table name="rmc_res_data_property"></table>
+            <table name="rmc_res_file_property"></table>
+            <table name="rmc_res_gis_property"></table>
+            <table name="rmc_res_service_property"></table>
+            <table name="rmc_res_authority"></table>
+
+            <table name="rmc_release">
+                <relation>
+                    <one-to-one both="true">
+                        <relation-fields table="rmc_rls_data_property" joinType="left join">
+                            <relation-field left="rls_property_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+                    <one-to-one both="true">
+                        <relation-fields table="rmc_rls_file_property" joinType="left join">
+                            <relation-field left="rls_property_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+                    <one-to-one both="true">
+                        <relation-fields table="rmc_rls_gis_property" joinType="left join">
+                            <relation-field left="rls_property_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+                </relation>
+            </table>
+
+            <table name="rmc_rls_data_property"></table>
+            <table name="rmc_rls_file_property"></table>
+            <table name="rmc_rls_gis_property"></table>
+
+            <table name="rmc_apply">
+                <relation>
+                    <one-to-one both="false">
+                        <relation-fields table="rmc_resource" joinType="inner join">
+                            <relation-field left="res_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+                    <one-to-one both="true">
+                        <relation-fields table="rmc_apply_detail" joinType="inner join">
+                            <relation-field left="apply_detail_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+                </relation>
+            </table>
+
+            <table name="rmc_apply_detail">
+                <relation>
+                    <one-to-many both="false">
+                        <relation-fields table="rmc_detail_attachment" joinType="left join">
+                            <relation-field left="id" right="apply_detail_id"/>
+                        </relation-fields>
+                    </one-to-many>
+                </relation>
+            </table>
+
+            <table name="rmc_detail_attachment"></table>
+
+            <table name="rmc_catalog">
+                <relation>
+                    <many-to-many both="true">
+                        <relation-fields table="rmc_resource" joinType="inner join">
+                            <relation-field left="res_id" right="id"/>
+                        </relation-fields>
+                        <!--此处需要先配置中间关联关系表-->
+                        <relation-fields isRelationTable="true" table="rmc_catalog_res" joinType="inner join">
+                            <relation-field left="id" right="catalog_id"/>
+                        </relation-fields>
+                    </many-to-many>
+                </relation>
+            </table>
+
+            <table name="rmc_catalog_res"></table>
+
+            <table name="rmc_subject">
+                <relation>
+                    <many-to-many both="true">
+                        <relation-fields table="rmc_resource" joinType="inner join">
+                            <relation-field left="res_id" right="id"/>
+                        </relation-fields>
+                        <!--此处需要先配置中间关联关系表-->
+                        <relation-fields isRelationTable="true" table="rmc_subject_res" joinType="inner join">
+                            <relation-field left="id" right="subject_id"/>
+                        </relation-fields>
+                    </many-to-many>
+                    <one-to-many both="true">
+                        <relation-fields table="rmc_subject_authority" joinType="left join">
+                            <relation-field left="id" right="subject_id"/>
+                        </relation-fields>
+                    </one-to-many>
+                </relation>
+            </table>
+
+            <table name="rmc_subject_res"></table>
+            <table name="rmc_subject_authority"></table>
+
+            <table name="rmc_res_visit_log">
+                <relation>
+                    <one-to-one both="false">
+                        <relation-fields table="rmc_resource" joinType="inner join">
+                            <relation-field left="res_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+                </relation>
+            </table>
+
+            <table name="rmc_res_oper_log">
+                <relation>
+                    <one-to-one both="false">
+                        <relation-fields table="rmc_resource" joinType="inner join">
+                            <relation-field left="res_id" right="id"/>
+                        </relation-fields>
+                    </one-to-one>
+                </relation>
+            </table>
+
+            <table name="rmc_sys_oper_log"></table>
+        </tables>
+
+        <!--表中需要排除的字段,这些字段在生成entity时不会生成相应的属性-->
+        <excludedFields>
+            <field>id</field>
+            <field>create_date</field>
+            <field>update_date</field>
+            <field>delete_date</field>
+            <field>creator_id</field>
+            <field>updater_id</field>
+            <field>deleter_id</field>
+            <field>creator</field>
+            <field>updater</field>
+            <field>deleter</field>
+            <field>is_delete</field>
+        </excludedFields>
+    </tableCfg>
+
+    <DatabaseCfg>
+        <url>
+            <![CDATA[jdbc:mysql://192.168.1.210:3306/rmc?&useSSL=false&useUnicode=true&characterEncoding=UTF-8]]>
+        </url>
+        <user>huiqing</user>
+        <password>huiqing</password>
+    </DatabaseCfg>
+
+    <restPathPrefix>SYSTEM</restPathPrefix>
+</config>
