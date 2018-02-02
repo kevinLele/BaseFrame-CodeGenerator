@@ -10,6 +10,9 @@
 
 <#list entity.relations as relation>
     <#if relation.type == "one-to-one">
+        <!-- association: 一对一映射 -->
+        <!-- property: 把关联查询的一对一的信息封装到哪个属性上 -->
+        <!-- javaType: property属性的类型 -->
         <association property="${relation.relationFields[0].shortName}" javaType="${relation.relationFields[0].classType}">
             <id column="${relation.relationFields[0].shortName}_id" property="id"/>
         <#list relation.relationFields[0].properties as relationProperty>
@@ -23,6 +26,9 @@
 </#list>
 <#list entity.relations as relation>
     <#if relation.type == "one-to-many" || relation.type == "many-to-many">
+        <!-- collection: 一对多映射 -->
+        <!-- property: 把关联查询的一对多的信息封装到哪个属性上 -->
+        <!-- ofType: 指定集合内java的类型 -->
         <collection property="${relation.relationFields[0].shortName}List" ofType="${relation.relationFields[0].classType}">
             <id column="${relation.relationFields[0].shortName}_id" property="id"/>
         <#list relation.relationFields[0].properties as relationProperty>
