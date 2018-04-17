@@ -10,6 +10,8 @@ public class Entity {
 
     private boolean distributed;
 
+    private String basePackage;
+
     private String entityPackage;
 
     private String providerPackage;
@@ -33,6 +35,8 @@ public class Entity {
     private String className;
 
     private String tableName;
+
+    private String tableLabel;
 
     private String tableAlias;
 
@@ -166,5 +170,21 @@ public class Entity {
 
     public void setDistributed(boolean distributed) {
         this.distributed = distributed;
+    }
+
+    public String getTableLabel() {
+        return tableLabel;
+    }
+
+    public void setTableLabel(String tableLabel) {
+        this.tableLabel = tableLabel;
+    }
+
+    public String getBasePackage() {
+        return basePackage;
+    }
+
+    public void setBasePackage(String basePackage) {
+        this.basePackage = basePackage;
     }
 }

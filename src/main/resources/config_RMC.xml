@@ -5,31 +5,34 @@
 
     <!-- 相关路径配置 -->
     <paths>
-        <projectPath>D:\ZGIS_Cloud\Other\Codes\BaseFrame</projectPath>
+        <projectPath>D:\gitworkspaces\BaseFrame-BF-SPRINGMVC</projectPath>
 
+        <basePath>
+            \src\main\java\com\hq\cloudplatform\baseframe
+        </basePath>
         <utilPath>
-            \src\main\java\com\hq\CloudPlatform\BaseFrame\utils
+            \src\main\java\com\hq\cloudplatform\baseframe\utils
         </utilPath>
         <entityPath>
-            \src\main\java\com\hq\CloudPlatform\BaseFrame\entity
+            \src\main\java\com\hq\cloudplatform\baseframe\entity
         </entityPath>
         <mapperInterfacePath>
-            \src\main\java\com\hq\CloudPlatform\BaseFrame\mapper
+            \src\main\java\com\hq\cloudplatform\baseframe\dao
         </mapperInterfacePath>
         <mapperXmlPath>
             \src\main\resources\mappers\mysql
         </mapperXmlPath>
         <serviceInterfacePath>
-            \src\main\java\com\hq\CloudPlatform\BaseFrame\service
+            \src\main\java\com\hq\cloudplatform\baseframe\service
         </serviceInterfacePath>
         <serviceImplPath>
-            \src\main\java\com\hq\CloudPlatform\BaseFrame\service\impl
+            \src\main\java\com\hq\cloudplatform\baseframe\service\impl
         </serviceImplPath>
         <restfulInterfacePath>
-            \src\main\java\com\hq\CloudPlatform\BaseFrame\restful
+            \src\main\java\com\hq\cloudplatform\baseframe\restful
         </restfulInterfacePath>
         <restfulImplPath>
-            \src\main\java\com\hq\CloudPlatform\BaseFrame\restful\impl
+            \src\main\java\com\hq\cloudplatform\baseframe\restful\impl
         </restfulImplPath>
 
         <!--只有在分布式项目中才需要配置如下路径-->
@@ -42,7 +45,7 @@
     <tableCfg>
         <!--tablePrefix:表的前缀-->
         <tables tablePrefix="rmc_">
-            <table name="rmc_resource">
+            <table name="rmc_resource" label="资源">
                 <relation>
                     <one-to-one both="true">
                         <relation-fields table="rmc_res_data_property" joinType="left join">
@@ -96,7 +99,7 @@
             <table name="rmc_res_service_property"></table>
             <table name="rmc_res_authority"></table>
 
-            <table name="rmc_release">
+            <table name="rmc_release" label="发布的资源">
                 <relation>
                     <one-to-one both="true">
                         <relation-fields table="rmc_rls_data_property" joinType="left join">
@@ -116,11 +119,11 @@
                 </relation>
             </table>
 
-            <table name="rmc_rls_data_property"></table>
-            <table name="rmc_rls_file_property"></table>
-            <table name="rmc_rls_gis_property"></table>
+            <table name="rmc_rls_data_property" label="数据资源属性"></table>
+            <table name="rmc_rls_file_property" label="文件资源属性"></table>
+            <table name="rmc_rls_gis_property" label="GIS资源属性"></table>
 
-            <table name="rmc_apply">
+            <table name="rmc_apply" label="资源申请信息">
                 <relation>
                     <one-to-one both="false">
                         <relation-fields table="rmc_resource" joinType="inner join">
@@ -149,7 +152,7 @@
 
             <table name="rmc_catalog">
                 <relation>
-                    <many-to-many both="true">
+                    <many-to-many both="false">
                         <relation-fields table="rmc_resource" joinType="inner join">
                             <relation-field left="res_id" right="id"/>
                         </relation-fields>
@@ -165,7 +168,7 @@
 
             <table name="rmc_subject">
                 <relation>
-                    <many-to-many both="true">
+                    <many-to-many both="false">
                         <relation-fields table="rmc_resource" joinType="inner join">
                             <relation-field left="res_id" right="id"/>
                         </relation-fields>

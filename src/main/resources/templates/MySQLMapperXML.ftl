@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="${entity.mapperPackage}.${entity.className?cap_first}Mapper">
+<mapper namespace="${entity.mapperPackage}.${entity.className?cap_first}DAO">
 
     <resultMap type="${entity.entityPackage}.${entity.className?cap_first}" id="${entity.className}ResultMap">
     <#list entity.properties as property>
@@ -83,6 +83,11 @@
         delete ${entity.tableAlias} from ${entity.tableName} as ${entity.tableAlias}
         <include refid="sql_where"/>
     </delete>
+
+    <update id="logicDeleteByWhere" parameterType="java.util.Map">
+        update ${entity.tableName} ${entity.tableAlias} SET ${entity.tableAlias}.is_delete=1
+        <include refid="sql_where"/>
+    </update>
 
     <delete id="deleteById" parameterType="java.lang.String">
         delete from ${entity.tableName} where id = ${r"#"}{id}

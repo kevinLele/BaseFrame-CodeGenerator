@@ -56,7 +56,7 @@ public class CodeGenerator {
             /*
              * Server
              */
-            fmHelper.createFile(root, "Mapper.ftl", config.getPath().getProjectPath() + config.getPath().getMapperInterfacePath() + "\\" + StringUtil.toUpperCaseFirst(entity.getClassName()) + "Mapper.java");
+            fmHelper.createFile(root, "DAO.ftl", config.getPath().getProjectPath() + config.getPath().getMapperInterfacePath() + "\\" + StringUtil.toUpperCaseFirst(entity.getClassName()) + "DAO.java");
             fmHelper.createFile(root, "MySQLMapperXML.ftl", config.getPath().getProjectPath() + config.getPath().getMapperXmlPath() + "\\" + entity.getTableName().replaceAll("_", "-").toLowerCase() + "-mapper.xml");
             fmHelper.createFile(root, "Service.ftl", config.getPath().getProjectPath() + config.getPath().getServiceInterfacePath() + "\\I" + StringUtil.toUpperCaseFirst(entity.getClassName()) + "Service.java");
             fmHelper.createFile(root, "ServiceImpl.ftl", config.getPath().getProjectPath() + config.getPath().getServiceImplPath() + "\\" + StringUtil.toUpperCaseFirst(entity.getClassName()) + "ServiceImpl.java");

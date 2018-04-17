@@ -2,17 +2,20 @@ package ${entity.restfulImplPackage};
 
 import ${entity.entityPackage}.${entity.className?cap_first};
 import ${entity.restfulPackage}.I${entity.className?cap_first}RestService;
+import ${entity.restfulPackage}.view.Page;
+import ${entity.restfulPackage}.view.ResultBean;
 import ${entity.servicePackage}.IBaseService;
 import ${entity.servicePackage}.I${entity.className?cap_first}Service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.Path;
+import java.util.List;
+import java.util.Map;
 
-@Path("${entity.className}")
-@Controller
+@RestController
 @Slf4j
 public class ${entity.className?cap_first}RestServiceImpl extends BaseRestServiceImpl<${entity.className?cap_first}> implements I${entity.className?cap_first}RestService {
 
@@ -21,7 +24,7 @@ public class ${entity.className?cap_first}RestServiceImpl extends BaseRestServic
     private I${entity.className?cap_first}Service ${entity.className}Service;
 
     @Override
-    public IBaseService getService() {
+    public IBaseService<${entity.className?cap_first}> getService() {
         return ${entity.className}Service;
     }
 <#assign names = ""/>
@@ -34,13 +37,13 @@ public class ${entity.className?cap_first}RestServiceImpl extends BaseRestServic
 <#if names != "">
 
     @Override
-    public String getByWhereWith${names}(String jsonStr) {
-        return getByWhere(jsonStr, "findByMapWith${names}");
+    public ResultBean<List<${entity.className?cap_first}>> getByWhereWith${names}(@RequestBody Map<String, Object> mapBean) {
+        return getByWhere(mapBean, "findByMapWith${names}");
     }
 
     @Override
-    public String getPageWith${names}(String jsonStr) {
-        return getPage(jsonStr, "getCountWith${names}", "findByPageWith${names}");
+    public ResultBean<Page<${entity.className?cap_first}>> getPageWith${names}(@RequestBody Page<${entity.className?cap_first}> page) {
+        return getPage(page, "getCountWith${names}", "findByPageWith${names}");
     }
 </#if>
 }

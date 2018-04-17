@@ -7,6 +7,8 @@ public class Path {
 
     private String projectPath;
 
+    private String basePath;
+
     private String entityPath;
 
     private String providerInterfacePath;
@@ -123,5 +125,13 @@ public class Path {
 
     public void setUtilPath(String utilPath) {
         this.utilPath = utilPath;
+    }
+
+    public String getBasePath() {
+        return basePath;
+    }
+
+    public void setBasePath(String basePath) {
+        this.basePath = basePath;
     }
 }

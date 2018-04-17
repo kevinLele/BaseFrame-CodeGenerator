@@ -12,6 +12,8 @@ public class Table {
 
     private String alias;
 
+    private String label;
+
     private List<TableRelation> relations = new ArrayList<>();
 
     public String getName() {
@@ -36,5 +38,13 @@ public class Table {
 
     public void setAlias(String alias) {
         this.alias = alias;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

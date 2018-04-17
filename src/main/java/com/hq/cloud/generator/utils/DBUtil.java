@@ -62,6 +62,7 @@ public class DBUtil {
 
                 for (Table table : config.getTblConfig().getTables()) {
                     String tableName = table.getName();
+                    String tableLabel = table.getLabel();
 
                     // statement用来执行SQL语句
                     Statement statement = conn.createStatement();
@@ -71,6 +72,7 @@ public class DBUtil {
 
                     Entity entity = new Entity();
                     entity.setTableName(tableName);
+                    entity.setTableLabel(tableLabel);
                     entity.setTableAlias(table.getAlias());
                     entity.setRelations(table.getRelations());
                     entity.setClassName(StringUtil
@@ -236,6 +238,7 @@ public class DBUtil {
     }
 
     private static void initJavapackage(Path path, Entity entity) {
+        entity.setBasePackage(StringUtil.getPkg(path.getBasePath()));
         entity.setEntityPackage(StringUtil.getPkg(path.getEntityPath()));
         entity.setMapperPackage(StringUtil.getPkg(path.getMapperInterfacePath()));
         entity.setServicePackage(StringUtil.getPkg(path.getServiceInterfacePath()));

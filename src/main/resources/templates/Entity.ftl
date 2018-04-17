@@ -1,13 +1,20 @@
 package ${entity.entityPackage};
 
-import ${entity.utilPackage}.validation.annotation.ValidationBean;
-import ${entity.utilPackage}.validation.annotation.ValidationField;
+import ${entity.basePackage}.sys.aspect.validation.annotation.ValidationBean;
+import ${entity.basePackage}.sys.aspect.validation.annotation.ValidationField;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @ValidationBean
+<#if entity.tableLabel != "">
+@ApiModel(description = "${entity.tableLabel}")
+<#else>
+@ApiModel(description = "${entity.className?cap_first}")
+</#if>
 public class ${entity.className?cap_first} extends BaseEntity implements Serializable {
 
     <#list entity.properties as property>
@@ -20,6 +27,7 @@ public class ${entity.className?cap_first} extends BaseEntity implements Seriali
     <#if property.validationField>
     @ValidationField(notNull = ${property.notNull?c}<#if property.regex != "">, regex = "${property.regex}"</#if><#if property.tip != "">, tip = "${property.tip}"</#if>)
     </#if>
+    @ApiModelProperty(value = "${property.comment} 字段类型: ${property.fieldType} 长度: ${property.length}")
     private ${property.javaType} ${property.propertyName};
 
         </#if>

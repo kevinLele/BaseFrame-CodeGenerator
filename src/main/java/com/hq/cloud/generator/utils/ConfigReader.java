@@ -46,6 +46,7 @@ public class ConfigReader {
         Path path = new Path();
 
         path.setProjectPath(pathEle.getChildText("projectPath").trim());
+        path.setBasePath(pathEle.getChildText("basePath").trim());
         path.setEntityPath(pathEle.getChildText("entityPath").trim());
         path.setProviderInterfacePath(pathEle.getChildText("providerInterfacePath").trim());
         path.setProviderImplPath(pathEle.getChildText("providerImplPath").trim());
@@ -96,6 +97,12 @@ public class ConfigReader {
         Element relation = tableEle.getChild("relation");
         table.setName(tableName);
         table.setAlias(getTableAlias(tableName));
+
+        if (null != tableEle.getAttributeValue("label")) {
+            table.setLabel(tableEle.getAttributeValue("label").trim());
+        } else {
+            table.setLabel("");
+        }
 
         if (null != relation) {
             List<TableRelation> relations = new ArrayList<>();
